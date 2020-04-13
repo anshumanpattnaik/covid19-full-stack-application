@@ -6,7 +6,7 @@ This is a full-stack application which runs react.js in front-end and node.js in
 
 And it uses Mapbox to populate the coordinates on the map using GeoJSON format.
 
-<img src="Screenshots/covid19.PNG"/>
+<img src="Screenshots/covid19.png"/>
 
 ### Website Link
 [https://covid19.hackbotone.com](https://covid19.hackbotone.com)
