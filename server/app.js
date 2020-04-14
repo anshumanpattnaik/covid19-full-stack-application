@@ -22,7 +22,7 @@ cron.schedule('23 59 * * * *', async function () {
     var day = dateObj.getUTCDate();
     var year = dateObj.getUTCFullYear();
 
-    var month_name = ["JAN", "FEB", "MAR", "APR", "JUNE", "JULY", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    var month_name = ["JAN", "FEB", "MAR", "APR", "MAY", "JUNE", "JULY", "AUG", "SEP", "OCT", "NOV", "DEC"];
     var formattedMonth = month;
 
     if (month < 10) {
