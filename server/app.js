@@ -33,7 +33,7 @@ cron.schedule('23 59 * * * *', async function () {
     }
     newdate = month + "-" + day + "-" + year;
 
-    var formatted_date = day + " " + month_name[formattedMonth] + " " + year;
+    var formatted_date = day + " " + month_name[formattedMonth-1] + " " + year;
     var fileName = newdate + '.csv';
 
     const results = [];
