@@ -27,7 +27,7 @@ npm start
 ``````````````````````````````````````````````````````````````````````````````````````````````````````````
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### Change the constants values
+### Change the constants values in Client app
 ````````````````````````````````````````````````
 export const BASE_URL = `http://YOUR_IP_ADDRESS:9000`;
 export const MAPBOX_ACCESS_TOKEN = `YOUR_MAPBOX_API_TOKEN`;
