@@ -33,6 +33,13 @@ export const BASE_URL = `http://YOUR_IP_ADDRESS:9000`;
 export const MAPBOX_ACCESS_TOKEN = `YOUR_MAPBOX_API_TOKEN`;
 ````````````````````````````````````````````````
 
+### MAPBOX Styles
+These two below styles i have made public and it should work when you use your own MAPBOX_API_TOKEN
+````````````````````````````````````````````````
+mapbox://styles/hackbotone/ck8vtayrp0x5f1io3sakcmpnv
+mapbox://styles/hackbotone/ck8vt8vdj2fz91ilax6nwtins
+````````````````````````````````````````````````
+
 ### Note
 If you face any problem or have any suggestion on improving the code then feel free to raise an issue.
 
