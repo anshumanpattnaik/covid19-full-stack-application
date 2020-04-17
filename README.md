@@ -16,8 +16,11 @@ After git clone import the dummy statistics into your local MongoDB database, wh
 
 ``````````````````````````
 git clone https://github.com/anshumanpattnaik/covid19-full-stack-application.git
+
 cd covid19-full-stack-application
-Start MongoDB database
+
+Start MongoDB database based on your local environment
+
 mongoimport --uri "mongodb://127.0.0.1:27017/covid-19" --collection covid_statistics --file dummy_statistics.json
 ``````````````````````````
 
