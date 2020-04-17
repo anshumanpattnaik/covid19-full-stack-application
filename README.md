@@ -11,6 +11,16 @@ And it uses Mapbox to populate the coordinates on the map using GeoJSON format.
 ### Website Link
 [https://covid19.hackbotone.com](https://covid19.hackbotone.com)
 
+### MongoDB sample database import command
+After git clone import the dummy statistics into your local MongoDB database, which will help you to start the project.
+
+``````````````````````````
+git clone https://github.com/anshumanpattnaik/covid19-full-stack-application.git
+cd covid19-full-stack-application
+Start MongoDB database
+mongoimport --uri "mongodb://127.0.0.1:27017/covid-19" --collection covid_statistics --file dummy_statistics.json
+``````````````````````````
+
 ### Server Installation
 ``````````````````````````
 cd server 
@@ -24,7 +34,7 @@ Open [http://localhost:9000](http://localhost:9000) to view it in the browser.
 cd client 
 npm install
 npm start
-``````````````````````````````````````````````````````````````````````````````````````````````````````````
+``````````````````````````
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Change the constants values in Client app

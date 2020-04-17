@@ -92,22 +92,15 @@ cron.schedule('23 59 * * * *', async function () {
 });
 
 app.get('/', async function (req, res) {
-    MongoClient.connect(url, function (err, client) {
-        let database = client.db(db);
-        database.collection(collection).find()
-            .toArray((err, results) => {
-                if (err) throw err;
-                results.forEach((value) => {
-                    var result = JSON.parse(JSON.stringify(value));
-                    res.json({
-                        total_confirmed: result.total_confirmed,
-                        total_deaths: result.total_deaths,
-                        total_recovered: result.total_recovered,
-                        last_date_updated: result.last_date_updated,
-                        country_statistics: result.country_statistics
-                    });
-                });
-            })
+	MongoClient.connect(url, function (err, client) {
+		if (err) throw err;
+
+		let database = client.db(db);
+		database.collection(collection).findOne().then(function(result){
+			if(result){
+				res.json(result);
+			}
+		})
     });
 });
 
