@@ -15,7 +15,7 @@ And it uses Mapbox to populate the coordinates on the map using GeoJSON format.
 ``````````````````````````
 cd server 
 npm install
-node app.js
+npm start
 ``````````````````````````
 Open [http://localhost:9000](http://localhost:9000) to view it in the browser.
 
