@@ -19,7 +19,7 @@ git clone https://github.com/anshumanpattnaik/covid19-full-stack-application.git
 
 cd covid19-full-stack-application
 
-Start MongoDB database based on your local environment
+mongod (Start MongoDB database)
 
 mongoimport --uri "mongodb://127.0.0.1:27017/covid-19" --collection covid_statistics --file dummy_statistics.json
 ``````````````````````````
