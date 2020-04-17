@@ -28,7 +28,7 @@ mongoimport --uri "mongodb://127.0.0.1:27017/covid-19" --collection covid_statis
 ``````````````````````````
 cd server 
 npm install
-npm start
+node app.js
 ``````````````````````````
 Open [http://localhost:9000](http://localhost:9000) to view it in the browser.
 
