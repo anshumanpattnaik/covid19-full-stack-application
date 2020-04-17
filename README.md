@@ -63,6 +63,4 @@ If you face any problem or have any suggestion on improving the code then feel f
 
 ### Website Design & Developed by
 [Anshuman Pattnaik](https://hackbotone.com/about)
-</br>
-[www.hackbotone.com](https://hackbotone.com/)
 
