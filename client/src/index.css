@@ -505,8 +505,8 @@ body {
   background-color: #000;
 }
 .about-modal-container {
-  width: 35%;
-  height: 48%;
+  width: 45em;
+  height: 30em;
   position: absolute;
   border-radius: 10px;
   top: 0;

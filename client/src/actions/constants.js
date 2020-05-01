@@ -6,5 +6,5 @@ export const SET_ACTION = 'SET_ACTION';
 export const MAP_STYLE_ACTION = 'MAP_STYLE_ACTION';
 export const MAP_FLY_ACTION = 'MAP_FLY_ACTION';
 
-export const BASE_URL = `${process.env.REACT_APP_BASE_URL}`;
-export const MAPBOX_ACCESS_TOKEN = `${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`;
+export const BASE_URL = `http://YOUR_LOCAL_IP_ADDRESS:9000`;
+export const MAPBOX_ACCESS_TOKEN = `YOUR_MAPBOX_API_TOKEN`;

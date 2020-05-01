@@ -36,6 +36,9 @@ cron.schedule('23 59 * * * *', async function () {
     var formatted_date = day + " " + month_name[formattedMonth-1] + " " + year;
     var fileName = newdate + '.csv';
 
+    //var formatted_date = "13 APR 2020";
+    //var fileName = "04-13-2020.csv";
+
     const results = [];
     var data = [];
     var totalConfirmed = 0;
@@ -93,100 +96,82 @@ cron.schedule('23 59 * * * *', async function () {
 
 app.get('/', async function (req, res) {
     MongoClient.connect(url, function (err, client) {
+        if (err) throw err;
+
         let database = client.db(db);
-        database.collection(collection).find()
-            .toArray((err, results) => {
-                if (err) throw err;
-                results.forEach((value) => {
-                    var result = JSON.parse(JSON.stringify(value));
-                    res.json({
-                        total_confirmed: result.total_confirmed,
-                        total_deaths: result.total_deaths,
-                        total_recovered: result.total_recovered,
-                        last_date_updated: result.last_date_updated,
-                        country_statistics: result.country_statistics
-                    });
-                });
-            })
+        database.collection(collection).findOne().then(function (result) {
+            if (result) {
+                res.json(result);
+            }
+        })
     });
 });
 
 app.get('/markers.geojson', function (req, res) {
     MongoClient.connect(url, function (err, client) {
+        if (err) throw err;
+
         let database = client.db(db);
-        database.collection(collection).find()
-            .toArray((err, results) => {
-                if (err) throw err;
-                results.forEach((value) => {
-                    var data = [];
-                    var result = JSON.parse(JSON.stringify(value));
-                    var total_cases = 0;
+        database.collection(collection).findOne().then(function (results) {
+            if (results) {
+                var data = [];
+                var result = JSON.parse(JSON.stringify(results));
+                var total_cases = 0;
 
-                    var country;
-                    var us_confirmed;
-                    var us_deaths;
-                    var us_recovered;
-                    var us_total_cases;
+                var country;
+                
+                for (var i = 0; i < result.country_statistics.length; i++) {
+                    country = result.country_statistics[i].country;
 
-                    for (var i = 0; i < result.country_statistics.length; i++) {
-                        country = result.country_statistics[i].country;
-                        if (country == 'US') {
-                            us_confirmed = result.country_statistics[i].confirmed;
-                            us_deaths = result.country_statistics[i].deaths;
-                            us_recovered = result.country_statistics[i].recovered;
-                            us_total_cases = parseInt(us_confirmed) + parseInt(us_deaths) + parseInt(us_recovered);
-                        }
-                        for (var j = 0; j < result.country_statistics[i].states.length; j++) {
-                            var name = result.country_statistics[i].states[j].name;
-                            var address = result.country_statistics[i].states[j].address;
-                            var latitude = result.country_statistics[i].states[j].latitude;
-                            var longitude = result.country_statistics[i].states[j].longitude;
-                            var confirmed = result.country_statistics[i].states[j].confirmed;
-                            var deaths = result.country_statistics[i].states[j].deaths;
-                            var recovered = result.country_statistics[i].states[j].recovered;
+                    for (var j = 0; j < result.country_statistics[i].states.length; j++) {
+                        
+                        var state_name;
+                        var state_address;
+                        var latitude;
+                        var longitude;
+                        var confirmed = 0;
+                        var deaths = 0;
+                        var recovered = 0;
+
+                        var name = result.country_statistics[i].states[j].name;
+                        
+                        result.country_statistics[i].states.filter(city => city.name === name).map(e => {
+                            state_name = e.name;
+                            state_address = e.address;
+                            latitude = e.latitude;
+                            longitude = e.longitude;
+                            confirmed = confirmed + parseInt(e.confirmed);
+                            deaths = deaths + parseInt(e.deaths);
+                            recovered = recovered + parseInt(e.recovered);
                             total_cases = parseInt(confirmed) + parseInt(deaths) + parseInt(recovered);
-
-                            if (country != 'US') {
-                                var item = {
-                                    type: "Feature",
-                                    geometry: {
-                                        type: "Point",
-                                        coordinates: [longitude, latitude]
-                                    },
-                                    properties: {
-                                        key: j,
-                                        name: name,
-                                        address: address,
-                                        confirmed: confirmed,
-                                        deaths: deaths,
-                                        recovered: recovered,
-                                        total_cases: total_cases
-                                    }
-                                }
-                                data.push(item);
+                        });
+                        
+                        var item = {
+                            type: "Feature",
+                            geometry: {
+                                type: "Point",
+                                coordinates: [longitude, latitude]
+                            },
+                            properties: {
+                                key: j,
+                                country: country,
+                                name: state_name,
+                                address: state_address,
+                                confirmed: confirmed,
+                                deaths: deaths,
+                                recovered: recovered,
+                                total_cases: total_cases
                             }
                         }
+                        data.push(item);
                     }
-                    var item = {
-                        type: "Feature",
-                        geometry: {
-                            type: "Point",
-                            coordinates: [-98.35, 39.50]
-                        },
-                        properties: {
-                            key: 9899545,
-                            name: 'United States',
-                            address: 'US',
-                            confirmed: us_confirmed,
-                            deaths: us_deaths,
-                            recovered: us_recovered,
-                            total_cases: us_total_cases
-                        }
-                    }
-                    data.push(item);
-                    res.json(data);
+                }
+                data = data.filter((obj, pos, arr) => {
+                    return arr.map(mapObj => mapObj.properties.name).indexOf(obj.properties.name) == pos;
                 });
-            })
+                res.json(data);
+            }
+        })
     });
 });
 
@@ -230,7 +215,7 @@ function getStatistics(country_obj, results) {
             }
             state_address = results[i].Combined_Key;
 
-            if (results[i].Lat.length > 0 && results[i].Long_.length > 0) {
+            if (results[i].Lat !== undefined && results[i].Lat.length > 0 && results[i].Long_ !== undefined && results[i].Long_.length > 0) {
                 state_latitude = parseFloat(results[i].Lat);
                 state_longitude = parseFloat(results[i].Long_);
             } else {
@@ -255,6 +240,7 @@ function getStatistics(country_obj, results) {
             statistics.push(state_statistics);
         }
     }
+    
     country_statistics = {
         country: country,
         code: code,
@@ -263,7 +249,7 @@ function getStatistics(country_obj, results) {
         confirmed: confirmed,
         deaths: deaths,
         recovered: recovered,
-        states: statistics
+        states: statistics.sort().filter(function(el,i,a){return i===a.indexOf(el)})
     }
     return country_statistics;
 }
