@@ -125,7 +125,7 @@ class MapComponent extends Component {
                 if (statistics.item !== undefined) {
                     map.flyTo({
                         center: statistics.item,
-                        zoom: 6,
+                        zoom: 4,
                         bearing: 0,
                         speed: 1,
                         curve: 1,

@@ -1,7 +1,7 @@
 {
   "name": "coronavirus-project-api",
   "version": "1.0.0",
-  "description": "Coronavirus Project Api",
+  "description": "Coronavirus Server Api",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",

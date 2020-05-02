@@ -16,8 +16,11 @@ After git clone import the dummy statistics into your local MongoDB database, wh
 
 ``````````````````````````
 git clone https://github.com/anshumanpattnaik/covid19-full-stack-application.git
+
 cd covid19-full-stack-application
-Start MongoDB database
+
+mongod (Start MongoDB database)
+
 mongoimport --uri "mongodb://127.0.0.1:27017/covid-19" --collection covid_statistics --file dummy_statistics.json
 ``````````````````````````
 
@@ -57,6 +60,9 @@ If you face any problem or have any suggestion on improving the code then feel f
 [https://hackbotone.com/blog/covid-19-full-stack-application](https://hackbotone.com/blog/covid-19-full-stack-application)
 
 [https://www.youtube.com/watch?v=dth5jfLDuus&t=16s](https://www.youtube.com/watch?v=dth5jfLDuus&t=16s)
+
+### Website Design & Developed by
+[Anshuman Pattnaik](https://www.linkedin.com/in/anshuman123/)
 
 ### License & copyright
 This project is licensed under the [MIT License](LICENSE)
