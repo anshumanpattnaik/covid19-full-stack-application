@@ -17,7 +17,8 @@ class CoronaStatisticsContainer extends Component {
       tabMenuSelect: 1,
       tabSelectedtPos: -1,
       statistics: [],
-      matches: window.matchMedia("(min-width: 1000px)").matches
+      matches: window.matchMedia("(min-width: 1000px)").matches,
+      searchcountrynotfound:false,
     }
     this.filter_statistics = [];
   }
@@ -117,6 +118,17 @@ class CoronaStatisticsContainer extends Component {
       const textData = keyword.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
+    if(newData.length==0){
+      this.setState({
+        searchcountrynotfound:true
+      })
+  
+    }else{
+      this.setState({
+        searchcountrynotfound:false
+      })
+  
+    }
     this.setState({
       isLoading: true,
       statistics: newData
@@ -205,6 +217,7 @@ class CoronaStatisticsContainer extends Component {
             </div>
           </div>
           <div className={'counrty-statistics-list-container'}>
+          { this.state.searchcountrynotfound && <div className='search-country-notfound'>Search country not found</div>}
             {this.state.isLoading && this.state.statistics && this.state.statistics.length > 0 ?
               <FlatList
                 list={this.state.statistics}

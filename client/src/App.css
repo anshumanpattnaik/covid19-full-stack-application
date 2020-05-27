@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+.search-country-notfound{
+  display: flex;
+  justify-content: center;
+  margin: 1em;
+  text-transform: capitalize;
+  font-family: sans-serif;
+
+ 
+}
