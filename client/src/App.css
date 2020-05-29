@@ -45,3 +45,17 @@
 
  
 }
+.chartcontainer{
+  display: flex;
+  justify-content: center;
+  /* flex-direction: column; */
+   /* width: 100%; */
+   height: 100em;
+}
+.static-chart{
+  display: flex;
+  justify-content: center;
+  /* margin: 2em; */
+  width: 3em;
+  height: 2em;
+}

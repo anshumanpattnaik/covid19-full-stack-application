@@ -4,8 +4,10 @@ import NumberFormat from 'react-number-format';
 import { OrbitSpinner } from 'react-epic-spinners';
 import FlatList from 'flatlist-react';
 
-import { fetchCoronaStatistics, showCountryStatistics, setMapStyle, setAction } from '../../actions';
+import { fetchCoronaStatistics, showCountryStatistics, setMapStyle, setAction,Showchart } from '../../actions';
 import { MAP_STYLE_ACTION, MAP_FLY_ACTION } from '../../actions/constants';
+import { GoGraph } from "react-icons/go";
+import { RiMapPinLine } from "react-icons/ri";
 
 class CoronaStatisticsContainer extends Component {
   constructor(props) {
@@ -43,6 +45,21 @@ class CoronaStatisticsContainer extends Component {
     this.props.showCountryStatistics(item.coordinates)
   }
 
+  DislplayChart=()=>{
+  
+
+  // this.props.show()
+ 
+
+this.props.Showchart(true)
+
+
+
+}
+
+showmap=()=>{
+  this.props.Showchart(false)
+}
   onTabSelection = (index) => {
     if (index === 3) {
       this.setState({
@@ -174,11 +191,18 @@ class CoronaStatisticsContainer extends Component {
               </p>
             </div>
             <div className={'covid-date-container'}>
+
               <span className={'covid-timeline-label'}>Last Updated:</span>
               <span className={'covid-timeline'}>{date}</span>
             </div>
             <div className={'total-statistics-container'}>
-              <div className={'total-death-recovery-container'}>
+              
+              {/* <Link to='/chart' className={'total-death-recovery-container'}> */}
+              <div className={'total-death-recovery-container'} onClick={(e)=>{
+                  this.DislplayChart(e)
+                }}
+                >
+          
                 <div className={'dr-container'}>
                   <NumberFormat
                     className={'total-confirmed-count'}
@@ -206,10 +230,12 @@ class CoronaStatisticsContainer extends Component {
                   />
                   <span className={'dr-recovered-label'}>RECOVERED</span>
                 </div>
-              </div>
+                </div>
+             
+            
             </div>
-          </div>
-          <div className={'header-bottom-line'}></div>
+            
+          </div>          <div className={'header-bottom-line'}></div>
           <div className={'search-container'}>
             <div className={'search-input-border'}>
               <img src={"https://assets.hackbotone.com/images/icons/ic_search.png"} alt="Search" className={'search-icon'}/>
@@ -283,8 +309,21 @@ class CoronaStatisticsContainer extends Component {
           </div>
           : null}
         <div className={this.state.isAboutModal && !this.state.matches?'tooltip-container-hide':'tooltip-container'}>
-          <img src={"https://assets.hackbotone.com/images/icons/ic_dark_map_style.PNG"} className={'map-style-dark-img'} alt="Dark Theme" onClick={this.onSetMapStyle.bind(this, 'mapbox://styles/hackbotone/ck8vtayrp0x5f1io3sakcmpnv')} />
-          <img src={"https://assets.hackbotone.com/images/icons/ic_light_map_style.PNG"} className={'map-style-light-img'} alt="Light Theme" onClick={this.onSetMapStyle.bind(this, 'mapbox://styles/hackbotone/ck8vt8vdj2fz91ilax6nwtins')} />
+        <GoGraph className={'static-chart'}
+           onClick={(e)=>{
+             this.DislplayChart()
+            // this.showmap()
+          }}
+          />
+          {this.props.Dislplay.Dislplay && <RiMapPinLine className={'static-chart'}
+           onClick={(e)=>{
+            this.showmap()
+          }}
+          />}
+        
+         {!this.props.Dislplay.Dislplay && <img src={"https://assets.hackbotone.com/images/icons/ic_dark_map_style.PNG"} className={'map-style-dark-img'} alt="Dark Theme" onClick={this.onSetMapStyle.bind(this, 'mapbox://styles/hackbotone/ck8vtayrp0x5f1io3sakcmpnv')} />}
+         {!this.props.Dislplay.Dislplay &&  <img src={"https://assets.hackbotone.com/images/icons/ic_light_map_style.PNG"} className={'map-style-light-img'} alt="Light Theme" onClick={this.onSetMapStyle.bind(this, 'mapbox://styles/hackbotone/ck8vt8vdj2fz91ilax6nwtins')} />}
+      
         </div>
         <div className={this.state.tabSelectedtPos === 1 || this.state.tabSelectedtPos === 3 ? 'map-box-container-hide' : 'map-box-container'}></div>
         <div className={this.state.tabSelectedtPos === 2 || this.state.tabSelectedtPos === 3 ? 'parent-container-hide' : 'parent-container'}>
@@ -310,14 +349,16 @@ class CoronaStatisticsContainer extends Component {
 }
 
 const stateProps = state => ({
-  statistics: state.statistics
+  statistics: state.statistics,
+  Dislplay:state. Dislplay
 });
 
 const dispatchProps = dispatch => ({
   fetchCoronaStatistics: () => dispatch(fetchCoronaStatistics()),
   showCountryStatistics: item => dispatch(showCountryStatistics(item)),
   setMapStyle: style => dispatch(setMapStyle(style)),
-  setAction: action => dispatch(setAction(action))
+  setAction: action => dispatch(setAction(action)),
+  Showchart:value=>dispatch(Showchart(value))
 });
 
 export default connect(stateProps, dispatchProps)(CoronaStatisticsContainer);

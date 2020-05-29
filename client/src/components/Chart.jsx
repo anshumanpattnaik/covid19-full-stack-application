@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+// import Highcharts from "highcharts";
+// import HighchartsReact from "highcharts-react-official";
+import { Bar } from "react-chartjs-2";
+import { GoGraph } from "react-icons/go";
 
 import {
-  fetchCoronaStatistics
+  fetchCoronaStatistics,
+
 } from "../actions";
-// import { MAP_STYLE_ACTION, MAP_FLY_ACTION } from "../actions/constants";
+import { MAP_STYLE_ACTION, MAP_FLY_ACTION } from "../actions/constants";
 
 class Chart extends Component {
   state = {};
