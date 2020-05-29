@@ -11,6 +11,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-epic-spinners": "^0.4.1",
+    "react-icon": "^1.0.0",
     "react-number-format": "^4.4.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
