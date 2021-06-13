@@ -8,9 +8,6 @@ And it uses Mapbox to populate the coordinates on the map using GeoJSON format.
 
 <img src="Screenshots/covid19.png"/>
 
-### Website Link
-[https://covid19.hackbotone.com](https://covid19.hackbotone.com)
-
 ### MongoDB sample database import command
 After git clone import the dummy statistics into your local MongoDB database, which will help you to start the project.
 
