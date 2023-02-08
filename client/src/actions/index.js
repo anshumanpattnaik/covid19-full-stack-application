@@ -5,6 +5,7 @@ import {
     MAP_STYLE,
     SET_ACTION,
     BASE_URL,
+    SHOW_CHART
 } from './constants';
 
 export const dispatchStatistics = data => ({
@@ -46,4 +47,8 @@ export const setMapStyle = style => ({
 export const setAction = action => ({
     type: SET_ACTION,
     payload: {action}
+})
+export const Showchart = value => ({
+    type: SHOW_CHART,
+    payload: value
 })
